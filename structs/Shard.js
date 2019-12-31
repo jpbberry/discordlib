@@ -14,6 +14,11 @@ class Shard {
     this.id = shardID;
     this.client = client;
     this.ws = null;
+    this.guildCount = null
+    this.counted = 0
+    this.readyd = false
+    
+    this.readyObj = null
 
     this.hbInterval = null;
     this.s = null;
@@ -55,6 +60,23 @@ class Shard {
     if (data.s) this.s = data.s;
 
     if (this.client.options.ignoreEvents.includes(data.t)) return;
+    
+    if (data.t === 'READY') {
+      this.guildCount = data.d.guilds.length
+      this.readyObj = data.d
+      return
+    }
+    
+    if (data.t === 'GUILD_CREATE' && !this.readyd) {
+      this.client.guilds.set(data.d.id, data.d)
+      this.counted++
+      if (this.counted >= this.guildCount) {
+        this.client.emit('SHARD_READY', this.readyObj, this)
+        this.readyObj = null
+        this.readyd = true
+      }
+      return
+    }
 
     this.client.emit(data.t, data.d || data, this);
     this.client.emit("*", data.d || data, this);

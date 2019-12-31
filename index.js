@@ -1,1 +1,1 @@
-module.exports = require('./discord-tag')
+module.exports = require('./structs/TagBot')
