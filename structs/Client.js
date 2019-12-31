@@ -42,7 +42,7 @@ class Client extends EventHandler {
     
     this.on('SHARD_READY', (_, shard) => {
       this.readys[shard.id] = true
-      if (!Object.keys(this.readys).includes(false)) this.emit('READY', _)
+      if (!Object.values(this.readys).includes(false)) this.emit('READY', _)
     })
     
     fs.readdirSync(path.resolve(__dirname, './managers')).forEach(manager => {

@@ -18,6 +18,16 @@ class UserManager {
       )
     }
   }
+  
+  edit(edit) {
+    return this.client.request(`/users/@me`, 'PATCH', edit)
+  }
+  
+  username(username) {
+    return this.edit({
+      username: username
+    })
+  }
 }
 
 module.exports = UserManager

@@ -1,1 +1,4 @@
-module.exports = require('./structs/TagBot')
+module.exports = {
+    Client: require('./structs/TagBot'),
+    Embed: require('./structs/Embed')
+}

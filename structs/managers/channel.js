@@ -14,6 +14,10 @@ class ChannelManager {
   delete(channel_id) {
     return this.client.request(`/channels/${channel_id}`, 'DELETE')
   }
+  
+  create(guild_id, obj = {}) {
+    return this.client.request(`/guilds/${guild_id}/channels`, 'POST', obj)
+  }
 }
 
 module.exports = ChannelManager
