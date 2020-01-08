@@ -290,7 +290,7 @@ class TagBot {
           return true
         }
       }))
-      if (!prefix) return
+      if (!prefix && prefix !== '') return
       const messagePart = message.content.slice(`${prefix}${space ? ' ' : ''}`.length).split(' ')
       const commandName = messagePart[0]
       message.args = messagePart.slice(1)
