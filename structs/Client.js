@@ -75,11 +75,7 @@ class Client extends EventEmitter {
       this[manager.split('.')[0]] = new m(this)
     })
     
-    this.parts = {}
-    
-    fs.readdirSync(path.resolve(__dirname, './parts')).forEach(part => {
-      this.parts[part.split('.')[0]] = require(path.resolve(__dirname, './parts', part))
-    })
+    this.parts = require('./parts/Parts')
 
     if (!this.options.dontStart) this.start()
 
@@ -159,12 +155,6 @@ class Client extends EventEmitter {
       }
       go()
     })
-  }
-  
-  // PARTS
-  
-  messages(channelID, messageID, message) {
-    return new this.parts.Message(this, channelID, messageID, message)
   }
 }
 

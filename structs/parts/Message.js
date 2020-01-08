@@ -1,8 +1,9 @@
 class Message {
-    constructor(client, channelID, messageID, m) {
-        this.client = client
+    constructor(parts, channelID, messageID, m) {
+        this.parts = parts
         this.channelID = channelID
-        this.messageID = messageID
+        if (!this.channelID) throw new Error('Error creating message part, missing channel id')
+        this.id = messageID
         this.raw = m
         
         if (m) {
@@ -16,16 +17,24 @@ class Message {
     }
     
     fetch() {
-        return this.client.message.fetch(this.channelID, this.messageID)
+        return this.parts.client.message.fetch(this.channelID, this.messageID)
     }
     
     get channel() {
-        return this.client.channels(this.channelID, this.guildID)
+        return this.parts.channel(this.channelID, this.guildID)
     }
     
     get guild() {
         if (!this.guildID) throw new Error('No guild provided')
-        return this.client.guilds(this.guildID)
+        return this.parts.guild(this.guildID)
+    }
+    
+    react(emoji) {
+        return this.parts.client.reaction.add(this.channelID, this.id, emoji)
+    }
+    
+    edit(...msg) {
+        return this.parts.client.message.edit(this.channelID, this.id, ...msg)
     }
 }
 
