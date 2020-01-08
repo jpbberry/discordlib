@@ -28,97 +28,164 @@ const Colors = {
   BLURPLE: 0x7289DA,
   GREYPLE: 0x99AAB5,
   DARK_BUT_NOT_BLACK: 0x2C2F33,
-  NOT_QUITE_BLACK: 0x23272A,
-};
+  NOT_QUITE_BLACK: 0x23272A
+}
 
-
+/**
+ * Embed object
+ */
 class Embed {
-    constructor () {
-        this.obj = {
-            title: null,
-            description: null,
-            url: null,
-            timestamp: null,
-            color: Colors.DEFAULT,
-            fields: [],
+  /**
+   * Creates Embed instance
+   */
+  constructor () {
+    /**
+     * Embed object
+     */
+    this.obj = {
+      title: null,
+      description: null,
+      url: null,
+      timestamp: null,
+      color: Colors.DEFAULT,
+      fields: [],
 
-            thumbnail: null,
-            footer: null,
-            image: null,
-            author: null
-        }
+      thumbnail: null,
+      footer: null,
+      image: null,
+      author: null
     }
-    
-    description(desc) {
-        this.obj.description = desc
-        return this
+  }
+  
+  /**
+   * Sets embeds description
+   * @param {String} desc Description
+   * @returns {Embed} This embed instance
+   */
+  description (desc) {
+    this.obj.description = desc
+    return this
+  }
+  
+  /**
+   * Sets embed title
+   * @param {String} title Title
+   * @param {String} url URL to set
+   * @returns {Embed} This embed instance
+   */
+  title (title, url) {
+    this.obj.title = title
+    this.obj.url = url || null
+    return this
+  }
+  
+  /**
+   * Sets timestamp
+   * @param {Date} date Date to set timestamp too
+   * @returns {Embed} This embed instance
+   */
+  timestamp (date = new Date()) {
+    this.obj.timestamp = date.toISOString()
+    return this
+  }
+  
+  /**
+   * Sets embed color
+   * @param {Integer or String} Color
+   * @returns {Embed} This embed instance
+   */
+  color (color) {
+    if (Colors[color]) color = Colors[color]
+    if (color instanceof String) color = Number(color)
+    this.obj.color = color
+    return this
+  }
+  
+  /**
+   * Adds a field
+   * @param {String} name Name of field
+   * @param {String} value Value of field
+   * @param {Boolean} inline Whether field is inline
+   * @returns {Embed} This embed instance
+   */
+  field (name, value, inline) {
+    this.obj.fields.push({
+      name: name,
+      value: value,
+      inline: inline
+    })
+    return this
+  }
+  
+  /**
+   * Sets thumbnail
+   * @param {String} url URL of thumbnail
+   * @param {Integer} width Width
+   * @param {Integer} height Height
+   * @returns {Embed} This embed instance
+   */
+  thumbnail (url, width, height) {
+    this.obj.thumbnail = {
+      url: url,
+      width: width || null,
+      height: height || null
     }
-    
-    title(title, url) {
-        this.obj.title = title
-        this.obj.url = url || null
-        return this
+    return this
+  }
+  
+  /**
+   * Sets footer
+   * @param {String} text Footer text
+   * @param {String} icon URL of icon
+   * @returns {Embed} This embed instance
+   */
+  footer (text, icon) {
+    this.obj.footer = {
+      text: text || null,
+      icon_url: icon || null
     }
-    
-    timestamp(date = new Date()) {
-        this.obj.timestamp = date.toISOString()
-        return this
+    return this
+  }
+  
+  /**
+   * Sets image
+   * @param {String} url URL of image
+   * @param {Integer} width Width
+   * @param {Integer} height Height
+   * @returns {Embed} This embed instance
+   */
+  image (url, width, height) {
+    this.obj.image = {
+      url: url,
+      width: width || null,
+      height: height || null
     }
-    
-    color(color) {
-        if (Colors[color]) color = Colors[color]
-        if (color instanceof String) color = Number(color)
-        this.obj.color = color
-        return this
+    return this
+  }
+  
+  /**
+   * Sets author
+   * @param {String} name Name of author
+   * @param {String} icon URL of icon
+   * @param {String} url URL link on author
+   * @returns {Embed} This embed instance
+   */
+  author (name, icon, url) {
+    this.obj.author = {
+      name: name,
+      icon_url: icon,
+      url: url
     }
-    
-    field(name, value, inline) {
-        this.obj.fields.push({
-            name: name,
-            value: value,
-            inline: inline
-        })
-        return this
-    }
-    
-    thumbnail(url, width, height) {
-        this.obj.thumbnail = {
-            url: url,
-            width: width || null,
-            height: height || null
-        }
-        return this
-    }
-    
-    footer(text, icon) {
-        this.obj.footer = {
-            text: text || null,
-            icon_url: icon || null
-        }
-        return this
-    }
-    
-    image(url, height, width) {
-        this.obj.image = {
-            url: url,
-            width: width || null,
-            height: height || null
-        }
-        return this
-    }
-    
-    author(name, icon, url) {
-        this.obj.author = {
-            name: name,
-            icon_url: icon,
-            url: url
-        }
-        return this
-    }
-    
-    render() {
-        return this.obj
-    }
+    return this
+  }
+  
+  /**
+   * Renders embed
+   * @returns {Object}
+   */
+  render () {
+    return this.obj
+  }
 }
 
 module.exports = Embed

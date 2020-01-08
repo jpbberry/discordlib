@@ -1,10 +1,25 @@
+/**
+ * User manager
+ */
 class UserManager {
-  constructor(client) {
+  /**
+   * Creates Manager instance
+   * @param {Client} client Intitiating client
+   */
+  constructor (client) {
+    /**
+     * Intitiating client
+     * @type {Client}
+     */
     this.client = client
   }
   
-  status(data) {
-    for (let shard of this.client.shards) {
+  /**
+   * Sets status
+   * @param {Object} data Discord status object
+   */
+  status (data) {
+    for (const shard of this.client.shards) {
       shard.ws.send(
         JSON.stringify({
           op: 3,
@@ -18,12 +33,21 @@ class UserManager {
       )
     }
   }
-  
-  edit(edit) {
-    return this.client.request(`/users/@me`, 'PATCH', edit)
+  /**
+   * Edits client user
+   * @param {Object} edit Discord user edit object
+   * @returns {Promise<Object>}
+   */
+  edit (edit) {
+    return this.client.request('/users/@me', 'PATCH', edit)
   }
   
-  username(username) {
+  /**
+   * Sets clients username
+   * @param {String} username New username
+   * @returns {Promise<Object>}
+   */
+  username (username) {
     return this.edit({
       username: username
     })

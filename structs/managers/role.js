@@ -1,23 +1,70 @@
+/**
+ * Role manager
+ */
 class RoleManager {
-  constructor(client) {
+  /**
+   * Creates Manager instance
+   * @param {Client} client Intitiating client
+   */
+  constructor (client) {
+    /**
+     * Intitiating client
+     * @type {Client}
+     */
     this.client = client
   }
   
-  add(guild_id, user_id, role_id) {
-    return this.client.request(`/guilds/${guild_id}/members/${user_id}/roles/${role_id}`, 'PUT')
-  }
-  remove(guild_id, user_id, role_id) {
-    return this.client.request(`/guilds/${guild_id}/members/${user_id}/roles/${role_id}`, 'DELETE')
+  /**
+   * Add role to user
+   * @param {Snowflake} guildID ID of guild
+   * @param {Snowflake} userID ID of user (member)
+   * @param {Snowflake} roleID ID of role to add to member
+   * @returns {Promise<Object>}
+   */
+  add (guildID, userID, roleID) {
+    return this.client.request(`/guilds/${guildID}/members/${userID}/roles/${roleID}`, 'PUT')
   }
   
-  create(guild_id, data = {}) {
-    return this.client.request(`/guilds/${guild_id}/roles`, 'POST', data)
+  /**
+   * Remove role from user
+   * @param {Snowflake} guildID ID of guild
+   * @param {Snowflake} userID ID of user (member)
+   * @param {Snowflake} roleID ID of role to remove from member
+   * @returns {Promise<Object>}
+   */
+  remove (guildID, userID, roleID) {
+    return this.client.request(`/guilds/${guildID}/members/${userID}/roles/${roleID}`, 'DELETE')
   }
-  delete(guild_id, role_id) {
-    return this.client.request(`/guilds/${guild_id}/roles/${role_id}`, 'DELETE')
+
+  /**
+   * Creates a role
+   * @param {Snowflake} guildID ID of guild to create role in
+   * @param {Object} data Role object
+   * @returns {Promise<Object>}
+   */
+  create (guildID, data = {}) {
+    return this.client.request(`/guilds/${guildID}/roles`, 'POST', data)
   }
-  edit(guild_id, role_id, edit) {
-    return this.client.request(`/guilds/${guild_id}/roles/${role_id}`, 'PATCH', edit)
+  
+  /**
+   * Deletes a role
+   * @param {Snowflake} guildID ID of guild role is in
+   * @param {Snowflake} roleID ID of role to delete
+   * @returns {Promise<Object>}
+   */
+  delete (guildID, roleID) {
+    return this.client.request(`/guilds/${guildID}/roles/${roleID}`, 'DELETE')
+  }
+  
+  /**
+   * Edit a role
+   * @param {Snowflake} guildID ID of guild role is in
+   * @param {Snowflake} roleID ID of role to edit
+   * @param {Object} edit Role object
+   * @returns {Promise<Object>}
+   */
+  edit (guildID, roleID, edit) {
+    return this.client.request(`/guilds/${guildID}/roles/${roleID}`, 'PATCH', edit)
   }
 }
 

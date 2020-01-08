@@ -1,5 +1,12 @@
+/**
+ * Webhook manager
+ */
 class WebhookManager {
-  constructor(client) {
+    /**
+     * Intitiating client
+     * @type {Client}
+     */
+  constructor (client) {
     this.client = client
   }
 }

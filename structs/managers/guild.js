@@ -1,18 +1,29 @@
 class GuildManager {
-  constructor(client) {
+  /**
+   * Creates Manager instance
+   * @param {Client} client Intitiating client
+   */
+  constructor (client) {
+    /**
+     * Intitiating client
+     * @type {Client}
+     */
     this.client = client
   }
-  
-  fetch(id) {
+
+  fetch (id) {
     return this.client.request(`/guilds/${id}`, 'GET')
   }
-  edit(id, edit) {
+
+  edit (id, edit) {
     return this.client.request(`/guilds/${id}`, 'PATCH', edit)
   }
-  delete(id) {
+
+  delete (id) {
     return this.client.request(`/guilds/${id}`, 'DELETE')
   }
-  leave(id) {
+
+  leave (id) {
     return this.client.request(`/users/@me/guilds/${id}`, 'DELETE')
   }
 }

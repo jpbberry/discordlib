@@ -1,0 +1,19 @@
+{
+  "name": "discord.jpb",
+  "version": "1.0.0",
+  "description": "Internal library made by JPBBerry",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jpbberry/discordlib.git"
+  },
+  "author": "JPBBerry",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jpbberry/discordlib/issues"
+  },
+  "homepage": "https://github.com/jpbberry/discordlib#readme"
+}
