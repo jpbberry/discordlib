@@ -164,7 +164,7 @@ class TagBot {
      */
   runCommand (commandName, message) {
     if (!this.allowBots && message.author.bot) return
-    const response = this.commands.find(cmd => cmd.name === commandName || (cmd.name instanceof RegExp && commandName.match(cmd.name)))
+    const response = this.commands.find(cmd => cmd.name === commandName || (cmd.name instanceof RegExp && commandName.match(cmd.name)) || (cmd.name instanceof Array && cmd.name.includes(commandName)))
     if (!response || !response.res) return
     this.log(`${message.author.username}#${message.author.discriminator} ran command: ${commandName}`)
     if ((typeof response.res) === 'function') response.res(message, this.bindMessage(message.channel_id))

@@ -1,9 +1,10 @@
 const WS = require('ws')
-const Embed = require('./Embed.js')
+const Embed = require('./Embed')
 const req = require('node-fetch')
 const EventEmitter = require('events')
 const fs = require('fs')
 const path = require('path')
+const Request = require('../req')
 
 function wait (a) { return new Promise(r => { setTimeout(() => r(), a) }) }
 
@@ -41,6 +42,8 @@ class Client extends EventEmitter {
      * @type {Array}
      */
     this.shards = []
+    
+    this.api = Request(this.options.api, { 'Authorization': `Bot ${token}` })
 
     /**
      * Ready booleans for each shard
